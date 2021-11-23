@@ -23,6 +23,7 @@ Chromosome::Chromosome(const Cities* cities_ptr)
 Chromosome::~Chromosome()
 {
   assert(is_valid());
+  //not sure how to delete this if we cant do delete *this
 }
 
 //////////////////////////////////////////////////////////////////////////////
