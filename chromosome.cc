@@ -1,5 +1,9 @@
 /*
  * Implementation for Chromosome class
+ * QUESTIONS: 
+ * arguments for constructor and destructor
+ * mutate (see comments)
+ * confused on in range
  */
 
 #include <algorithm>
@@ -7,6 +11,9 @@
 #include <random>
 
 #include "chromosome.hh"
+
+//why are we getting compiler error here
+// doesn't like it if we put const in line 22
 
 //////////////////////////////////////////////////////////////////////////////
 // Generate a completely random permutation from a list of cities
@@ -28,10 +35,13 @@ Chromosome::~Chromosome()
 
 //////////////////////////////////////////////////////////////////////////////
 // Perform a single mutation on this chromosome
+// should this modify the actual order_ member?
 void
 Chromosome::mutate()
 {
-  // Add your implementation here
+  //randomly generate two numbers within length of order_
+  // order_[i], order_[j] = order_[j], order_[i]; //swap the orders
+  //use iter_swap in <algorithms>
 
   assert(is_valid());
 }
@@ -85,7 +95,8 @@ Chromosome::create_crossover_child(const Chromosome* p1, const Chromosome* p2,
 double
 Chromosome::get_fitness() const
 {
-  // Add your implementation here
+  //call total path distance on order_
+  // multiply this by -1 and add a huge number to flip things
 }
 
 // A chromsome is valid if it has no repeated values in its permutation,
@@ -94,7 +105,17 @@ Chromosome::get_fitness() const
 bool
 Chromosome::is_valid() const
 {
-  // Add your implementation here
+  
+  // Check that the permutation is not empty
+  assert(not order_.empty()); 
+  
+  // Ensure there are no gaps
+  for (unsigned i = 0; i<order_.size(); i++){
+    assert(order_[i]);
+  }
+  //std::adjacent find (stl function that returns first pointer to duplicate) // Ensure there are no duplicates
+  // or maybe we can just return this function: bool is_permutation
+  return true;  
 }
 
 // Find whether a certain value appears in a given range of the chromosome.
@@ -103,5 +124,5 @@ Chromosome::is_valid() const
 bool
 Chromosome::is_in_range(unsigned value, unsigned begin, unsigned end) const
 {
-  // Add your implementation here
+  return (std::find(order_[begin], order_[end], value) != order_[end]);
 }
