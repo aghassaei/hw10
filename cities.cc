@@ -45,11 +45,11 @@ Cities::permutation_t random_permutation(unsigned len) {
 	return permutation;
 }
 
-int Cities::size() {
+int Cities::size() const {
 	return all_pairs.size();
 }
 
-std::vector<Cities::coord_t> Cities::get_pairs() {
+std::vector<Cities::coord_t> Cities::get_pairs() const{
 	return all_pairs;
 }
 

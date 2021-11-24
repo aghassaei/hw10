@@ -4,16 +4,17 @@
  * arguments for constructor and destructor
  * mutate (see comments)
  * confused on in range
+ * general info:
+ *  left collumn can be multiple of num of individuals per generation
+ *
  */
 
 #include <algorithm>
 #include <cassert>
 #include <random>
+#include <iterator>
 
 #include "chromosome.hh"
-
-//why are we getting compiler error here
-// doesn't like it if we put const in line 22
 
 //////////////////////////////////////////////////////////////////////////////
 // Generate a completely random permutation from a list of cities
@@ -35,14 +36,20 @@ Chromosome::~Chromosome()
 
 //////////////////////////////////////////////////////////////////////////////
 // Perform a single mutation on this chromosome
-// should this modify the actual order_ member?
 void
 Chromosome::mutate()
 {
-  //randomly generate two numbers within length of order_
-  // order_[i], order_[j] = order_[j], order_[i]; //swap the orders
-  //use iter_swap in <algorithms>
+  
+  // Initialize two forward iterators instead???
+  std::uniform_int_distribution<int> distribution(0, order_.size());
+  auto i = distribution(generator_);
+  auto j = distribution(generator_);
 
+  // Swap 
+  std::swap(order_[i], order_[j]);
+
+  
+  // Check that this new arrangement is valid
   assert(is_valid());
 }
 
@@ -52,10 +59,22 @@ Chromosome::mutate()
 std::pair<Chromosome*, Chromosome*>
 Chromosome::recombine(const Chromosome* other)
 {
-  assert(is_valid());
+  // Check that both original and other are valid
+  assert(is_valid()); 
   assert(other->is_valid());
+ 
+  std::pair<Chromosome*, Chromosome*> ptr_pair;
 
-  // Add your implementation here
+  unsigned b = 0;
+  unsigned e = order_.size();
+
+  // Create crossover children
+  ptr_pair.first = create_crossover_child(this, other, b, e);
+  ptr_pair.first = create_crossover_child(other, this, b, e);
+ 
+  // Allocate new memory? I think this is taken care of in create_crossover_child (?)
+
+  return ptr_pair;
 }
 
 //////////////////////////////////////////////////////////////////////////////
@@ -92,11 +111,13 @@ Chromosome::create_crossover_child(const Chromosome* p1, const Chromosome* p2,
 
 // Return a positive fitness value, with higher numbers representing
 // fitter solutions (shorter total-city traversal path).
+// (?) We can totally find a better way to do this in the future
 double
 Chromosome::get_fitness() const
 {
-  //call total path distance on order_
-  // multiply this by -1 and add a huge number to flip things
+  auto score = cities_ptr_->total_path_distance(order_);
+  auto fitness = score*-1 + offset_;
+  return fitness;
 }
 
 // A chromsome is valid if it has no repeated values in its permutation,
@@ -113,6 +134,7 @@ Chromosome::is_valid() const
   for (unsigned i = 0; i<order_.size(); i++){
     assert(order_[i]);
   }
+  // (?) can probably replace this loop with an stl function:
   //std::adjacent find (stl function that returns first pointer to duplicate) // Ensure there are no duplicates
   // or maybe we can just return this function: bool is_permutation
   return true;  

@@ -26,8 +26,8 @@ class Cities {
 
   Cities reorder(const permutation_t& ordering) const;
 
-  int size(); // returns how many cities are in the vector
-  std::vector<coord_t> get_pairs(); // Returns all_pairs
+  int size() const; // returns how many cities are in the vector
+  std::vector<coord_t> get_pairs() const; // Returns all_pairs
   void push_city(Cities::coord_t coord); // adds a city to the end of the list
   double single_path_distance(const coord_t city1, const coord_t city2) const; //helper function, finds distance betw two cities
 
@@ -38,4 +38,5 @@ private:
 };
 
 //random_permutation is outside the class
+// Can this be const?
 Cities::permutation_t random_permutation(unsigned len);
