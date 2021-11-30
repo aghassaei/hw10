@@ -18,5 +18,3 @@ tsp: tsp.o chromosome.o deme.o cities.o
 clean:
 	rm -rf *.o test_cities tsp
 
-test: test_cities
-	./test_cities
