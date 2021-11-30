@@ -18,10 +18,12 @@ A chromosome represents a permutation on the orders of the cities to visit. Note
 ## Deme Class
 
  A deme is a population of individuals. Deme class will evolve a genetic algorithm for the travelling-salesperson problem
- 
+
 ## Running the Code
  
 To compile, type `make` into the commandline then `./tsp`. (I think) the code will print some things???
+
+actually we probably want to have two tsp files one random and one with our genetic alg
 
 ## Visualizations
 
