@@ -9,11 +9,6 @@
  *
  */
 
-#include <algorithm>
-#include <cassert>
-#include <random>
-#include <iterator>
-
 #include "chromosome.hh"
 
 //////////////////////////////////////////////////////////////////////////////
@@ -31,7 +26,6 @@ Chromosome::Chromosome(const Cities* cities_ptr)
 Chromosome::~Chromosome()
 {
   assert(is_valid());
-  //not sure how to delete this if we cant do delete *this
 }
 
 //////////////////////////////////////////////////////////////////////////////
@@ -39,7 +33,7 @@ Chromosome::~Chromosome()
 void
 Chromosome::mutate()
 {
-  
+  assert(is_valid());
   // Initialize two forward iterators instead???
   std::uniform_int_distribution<int> distribution(0, order_.size());
   auto i = distribution(generator_);
@@ -47,7 +41,6 @@ Chromosome::mutate()
 
   // Swap 
   std::swap(order_[i], order_[j]);
-
   
   // Check that this new arrangement is valid
   assert(is_valid());
@@ -65,14 +58,16 @@ Chromosome::recombine(const Chromosome* other)
  
   std::pair<Chromosome*, Chromosome*> ptr_pair;
 
-  unsigned b = 0;
-  unsigned e = order_.size();
+  std::uniform_int_distribution<> random(0, order_.size());
+ unsigned l = random(generator_);
+
+ std::uniform_int_distribution<> random2(0, order_.size()-l);
+ unsigned b = random2(generator_); 
+ unsigned e = b+l;
 
   // Create crossover children
   ptr_pair.first = create_crossover_child(this, other, b, e);
-  ptr_pair.first = create_crossover_child(other, this, b, e);
- 
-  // Allocate new memory? I think this is taken care of in create_crossover_child (?)
+  ptr_pair.second = create_crossover_child(other, this, b, e);
 
   return ptr_pair;
 }

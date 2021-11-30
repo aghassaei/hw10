@@ -9,14 +9,19 @@
 // Generate a Deme of the specified size with all-random chromosomes.
 // Also receives a mutation rate in the range [0-1].
 Deme::Deme(const Cities* cities_ptr, unsigned pop_size, double mut_rate)
+pop_(pop_size), mut_rate_(mut_rate)
 {
-  // Add your implementation here
+  // use for loop
+  // pop_[i] = new Chromosome(cities_ptr) //bc already on the stack?
+
 }
 
 // Clean up as necessary
 Deme::~Deme()
 {
-  // Add your implementation here
+  for (auto c : pop_){
+    delete c;
+  }
 }
 
 // Evolve a single generation of new chromosomes, as follows:

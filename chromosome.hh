@@ -10,9 +10,14 @@
 
 #pragma once
 
-#include "cities.hh"
-#include <random>
 
+#include <random>
+#include <algorithm>
+#include <cassert>
+#include <iterator>
+#include <vector>
+
+#include "cities.hh"
 class Chromosome {
    // Disable public copying of objects for polymorphism:
   Chromosome(const Chromosome&) = delete;
