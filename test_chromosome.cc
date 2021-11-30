@@ -4,24 +4,33 @@
 
 #include "chromosome.hh"
 
-
 // Testing mutate
-/* // Save the previous ordering 
+bool test_mutate(Chromosome chrom){
+  assert(chrom.is_valid());
+
+  // Save previous ordering 
   Cities::permutation_t prev_order;
   copy(order_.begin(), order_.end(), back_inserter(prev_order));
   assert(not prev_order.empty());
-  also print the two mutations to make sure that its mutating some of the time (it doesn't need to do this all of the time)
-//assert same length
-//for every i in both of them
-//if c[i] not equal c'[i] then found = true
 
-//to check is valid putting in things that are invalid
+  chrom.mutate();
 
+  // Find a difference
+  bool found_difference = false;
+  for (auto i; i<chrom.order_.size(), i++){
+    if prev_order[i] != chrom.order_[i]{
+      found_difference = true;
+    }
 
+  }
+  return found_difference;
 
-
-
+}
+  
 int main(){
-	//some tests
+  Cities cities1 = Cities();
+  Cities* cities1_ptr = *cities1;
+  Chromosome chrom1 = Chromosome(cities1_ptr);
+  assert(test_mutate(chrom1));
 	return 0;
 }

@@ -17,6 +17,7 @@
 #include <vector>
 
 #include "cities.hh"
+
 class Chromosome {
    // Disable public copying of objects for polymorphism:
   Chromosome(const Chromosome&) = delete;

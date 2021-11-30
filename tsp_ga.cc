@@ -11,6 +11,11 @@
 
 int main(int argc, char *argv[]){
 
+  // Paramaters for the GA 
+  unsigned pop_size = 100;
+  double mut_rate = 0.5;
+  int iterations = 100;
+
   // Make sure arguments passed in correctly
   assert(argc == 2);
 
@@ -22,13 +27,21 @@ int main(int argc, char *argv[]){
 	}
 
 
-	else{
+  // Run the GA
+	else {
+
+    // Create cities object and pointer from file
 		Cities cities_object = Cities();
 		cities_file>>cities_object;
-    
-    //create a deme?
-    // run ga thing
-    // save somehow?
+    Cities* const cities_ptr = *cities_object;
+
+    // Create the population
+    Deme::Deme deme = Deme(cities1_ptr, pop_size, mut_rate);
+
+    while (iterations>0){
+      //run the thing, confused on this?
+      iterations--;
+    }
 
     /*
 
