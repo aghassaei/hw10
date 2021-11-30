@@ -16,7 +16,7 @@ Deme::Deme(const Cities* cities_ptr, unsigned pop_size, double mut_rate)
   // Not sure if this is random (?)
   for (unsigned i = 0; i < pop_size; i++){
     pop_[i] = new Chromosome(cities_ptr); //make sure that this is allocated corrrectly?
-
+  }
 }
 
 
@@ -27,16 +27,17 @@ Deme::~Deme() {for (auto c : pop_){ delete c;}}
 const Chromosome* Deme::get_best() const
 {
   // Set to first Chromosome arbitrarily
-  Chromosome* highest = pop_[0]
+  Chromosome* highest = pop_[0];
 
   // Check highest against every other Chromosome in pop_
   // (?) find a way to skip the first one with this syntax
   for (auto c : pop_){
-   if (c.get_fitness() > highest.get_fitness()){
+   if (c->get_fitness() > highest->get_fitness()){
     highest = c;
    }
+  }
+  return highest;
 }
-
 // Randomly select a chromosome in the population based on fitness and
 // return a pointer to that chromosome.
 // Using Fitness Proportionate selection
@@ -45,7 +46,7 @@ Chromosome* Deme::select_parent()
   // Get the sume of all the fitness
   double S = 0;
   for (auto c : pop_){
-    S += c.get_fitness();
+    S += c->get_fitness();
   }
 
   // Generate a random number (why??)
@@ -79,18 +80,18 @@ void Deme::compute_next_generation()
   std::uniform_int_distribution<int> random4(0, 1);
   auto mutation = random4(generator_);
   if (mutation<mut_rate_){
-    p1.mutate();
+    p1->mutate();
   }
 
   std::uniform_int_distribution<int> random5(0, 1);
   auto mutation2 = random5(generator_);
 
   if (mutation2<mut_rate_){
-    p1.mutate();
+    p1->mutate();
   }
 
   // store two children
-  auto children = recombine(p1, p2);
+  auto children = p1->recombine(p2);
 
   //at the end replace old pop with new pop
 
