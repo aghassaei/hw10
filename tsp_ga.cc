@@ -4,6 +4,7 @@
 #include <iostream>
 #include <fstream>
 #include <cassert>
+#include <memory>
 
 
 #include "chromosome.hh"
@@ -33,7 +34,9 @@ int main(int argc, char *argv[]){
     // Create cities object and pointer from file
 		Cities cities_object = Cities();
 		cities_file>>cities_object;
-    Cities* const cities_ptr = *cities_object;
+
+    // (?) not correct
+    Cities* cities_ptr = std::make_shared<Cities*>(cities_object);
 
     // Create the population
     Deme::Deme deme = Deme(cities1_ptr, pop_size, mut_rate);
@@ -55,7 +58,5 @@ int main(int argc, char *argv[]){
     results_file<<best_ordering.back()<<std::endl;
 	*/
   }
-
-
    return 0;
 }
