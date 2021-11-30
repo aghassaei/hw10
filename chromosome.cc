@@ -110,6 +110,7 @@ Chromosome::create_crossover_child(const Chromosome* p1, const Chromosome* p2,
 double
 Chromosome::get_fitness() const
 {
+  // (?) Probably better to store fitness as a private member rather than call total_path_distance multiple times
   auto score = cities_ptr_->total_path_distance(order_);
   auto fitness = score*-1 + offset_;
   return fitness;
@@ -141,5 +142,12 @@ Chromosome::is_valid() const
 bool
 Chromosome::is_in_range(unsigned value, unsigned begin, unsigned end) const
 {
-  return (std::find(order_[begin], order_[end], value) != order_[end]);
+  for (unsigned i = begin; i<end; i++){
+    if (order_[i] == value){
+      return true;
+    }
+  }
+  return false;
+  // this would be cleaner but it doesnt work for some reason
+  //return (std::find(order_[begin], order_[end], value) != order_[end]);
 }

@@ -10,7 +10,6 @@
 
 #pragma once
 
-
 #include <random>
 #include <algorithm>
 #include <cassert>

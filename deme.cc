@@ -10,23 +10,18 @@
 // Generate a Deme of the specified size with all-random chromosomes.
 // Also receives a mutation rate in the range [0-1].
 Deme::Deme(const Cities* cities_ptr, unsigned pop_size, double mut_rate)
-pop_(pop_size), mut_rate_(mut_rate)
+  : pop_(pop_size), mut_rate_(mut_rate)
 {
   // Add new chromosomes to the population
   // Not sure if this is random (?)
-  for (auto i = 0; i < pop_size; i++){
-    pop_[i] = new Chromosome(cities_ptr) //make sure that this is allocated corrrectly?
+  for (unsigned i = 0; i < pop_size; i++){
+    pop_[i] = new Chromosome(cities_ptr); //make sure that this is allocated corrrectly?
 
 }
 
 
 // Deconstruct by deleting each chromosome in the population
-Deme::~Deme()
-{
-  for (auto c : pop_){
-    delete c;
-  }
-}
+Deme::~Deme() {for (auto c : pop_){ delete c;}}
 
 // Return a copy of the chromosome with the highest fitness.
 const Chromosome* Deme::get_best() const
