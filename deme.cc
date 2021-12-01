@@ -58,7 +58,7 @@ Chromosome* Deme::select_parent()
   // Initialize partial sum
   double P = 0;
   for (auto c : pop_){
-    P += c.get_fitness();
+    P += c->get_fitness();
     if (P>rand_num){
       return c;
     }

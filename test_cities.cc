@@ -16,12 +16,12 @@ int main()
   std::ifstream cities_file;
   cities_file.open("five.tsv");
   cities_file >> cities;
-  std::vector<Cities::coord_t> pairs = cities.get_pairs();
+  //std::vector<Cities::coord_t> pairs = cities.get_pairs();
 
   // Verify that it was sucessfully created and that all_pairs is not empty
   std::cout << cities << std::endl;
-  assert(not pairs.empty());
-  
+  assert(not cities.get_cities().empty());
+
   // Test random_permutation
   random_permutation(5);
   random_permutation(5);
@@ -34,7 +34,3 @@ int main()
   std::cout << cities.total_path_distance({ 3, 2, 4, 0, 1 }) << "\n"; // Should be 53.43 (we get 46.2199S)
 
 }
-
-
-
-
