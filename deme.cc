@@ -49,14 +49,19 @@ Chromosome* Deme::select_parent()
     S += c->get_fitness();
   }
 
-  // Generate a random number (why??)
-  std::uniform_int_distribution<int> random3(0, S);
-  auto rand_num = random3(generator_);
+  // Generate a random number
+  double lower_bound = 0;
+  double upper_bound = S;
+  std::uniform_real_distribution<double> unif(lower_bound,upper_bound);
+  double rand_num = unif(generator_);
 
   // Initialize partial sum
   double P = 0;
-  // Another for loop to add to P
-  // if P<S, return that pointer (very confused on this lol)
+  for (auto c : pop_){
+    P += c.get_fitness();
+    if (P>rand_num){
+      return c;
+    }
 }
 
 // Evolve a single generation of new chromosomes, as follows:
@@ -75,8 +80,6 @@ void Deme::compute_next_generation()
     Chromosome* p2 = select_parent();
 
     // Mutate parents if random number less than mut_rate_
-    // (?) need a different random thing because this returns ints
-
     double lower_bound = 0;
     double upper_bound = 1;
     std::uniform_real_distribution<double> unif(lower_bound,upper_bound);
