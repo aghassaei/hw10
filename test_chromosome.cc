@@ -3,6 +3,7 @@
  */
 
 #include "chromosome.hh"
+#include <fstream>
 
 // Testing mutate
 bool test_mutate(Chromosome chrom){
@@ -10,24 +11,19 @@ bool test_mutate(Chromosome chrom){
 
   // Save previous ordering
   Cities::permutation_t prev_order;
-  copy(order_.begin(), order_.end(), back_inserter(prev_order));
+  copy(chrom.get_ordering().begin(), chrom.get_ordering().end(), back_inserter(prev_order));
   assert(not prev_order.empty());
 
   chrom.mutate();
 
-  // Find a difference
-  bool found_difference = false;
-  for (auto i; i<chrom.order_.size(), i++){
-    if prev_order[i] != chrom.order_[i]{
-      found_difference = true;
-    }
-  }
-  return found_difference;
+  return prev_order != chrom.get_ordering();
+}
 
 int main(){
   Cities cities1 = Cities();
-  Cities* cities1_ptr = *cities1;
-  Chromosome chrom1 = Chromosome(cities1_ptr);
-  assert(test_mutate(chrom1));
+  std::ifstream cities_file;
+  cities_file.open("five.tsv");
+  cities_file >> cities1;
+  assert(test_mutate(Chromosome(&cities1)));
 	return 0;
-}
+  }

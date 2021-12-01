@@ -10,7 +10,7 @@ all:  test_cities tsp tsp test_chromosome test_deme
 test_cities: cities.o test_cities.o
 	$(CXX) $(LDFLAGS) -o $@ $^
 
-test_chromosome: chromosome.o test_chromosome.o
+test_chromosome: chromosome.o test_chromosome.o cities.o
 	$(CXX) $(LDFLAGS) -o $@ $^
 
 test_deme: deme.o test_deme.o

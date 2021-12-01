@@ -1,6 +1,6 @@
 /*
  * Implementation for Chromosome class
- * QUESTIONS: 
+ * QUESTIONS:
  * arguments for constructor and destructor
  * mutate (see comments)
  * confused on in range
@@ -39,9 +39,9 @@ Chromosome::mutate()
   auto i = distribution(generator_);
   auto j = distribution(generator_);
 
-  // Swap 
+  // Swap
   std::swap(order_[i], order_[j]);
-  
+
   // Check that this new arrangement is valid
   assert(is_valid());
 }
@@ -53,16 +53,16 @@ std::pair<Chromosome*, Chromosome*>
 Chromosome::recombine(const Chromosome* other)
 {
   // Check that both original and other are valid
-  assert(is_valid()); 
+  assert(is_valid());
   assert(other->is_valid());
- 
+
   std::pair<Chromosome*, Chromosome*> ptr_pair;
 
   std::uniform_int_distribution<> random(0, order_.size());
  unsigned l = random(generator_);
 
  std::uniform_int_distribution<> random2(0, order_.size()-l);
- unsigned b = random2(generator_); 
+ unsigned b = random2(generator_);
  unsigned e = b+l;
 
   // Create crossover children
@@ -122,18 +122,15 @@ Chromosome::get_fitness() const
 bool
 Chromosome::is_valid() const
 {
-  
+
   // Check that the permutation is not empty
-  assert(not order_.empty()); 
-  
-  // Ensure there are no gaps
-  for (unsigned i = 0; i<order_.size(); i++){
-    assert(order_[i]);
-  }
-  // (?) can probably replace this loop with an stl function:
-  //std::adjacent find (stl function that returns first pointer to duplicate) // Ensure there are no duplicates
-  // or maybe we can just return this function: bool is_permutation
-  return true;  
+  assert(not order_.empty());
+
+  //assert that there are no duplicates
+  Cities::permutation_t copy = order_;
+  std::sort(copy.begin(), copy.end());
+  std::adjacent_find(copy.begin(), copy.end());
+  return true;
 }
 
 // Find whether a certain value appears in a given range of the chromosome.
@@ -142,12 +139,11 @@ Chromosome::is_valid() const
 bool
 Chromosome::is_in_range(unsigned value, unsigned begin, unsigned end) const
 {
-  for (unsigned i = begin; i<end; i++){
-    if (order_[i] == value){
-      return true;
-    }
-  }
-  return false;
-  // this would be cleaner but it doesnt work for some reason
-  //return (std::find(order_[begin], order_[end], value) != order_[end]);
+  // for (unsigned i = begin; i<end; i++){
+  //   if (order_[i] == value){
+  //     return true;
+  //   }
+  // }
+  // return false;
+  return (std::find(order_.begin() + begin, order_.begin() + end, value) != order_.begin() + end);
 }
