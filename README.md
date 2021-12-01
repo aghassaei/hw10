@@ -9,7 +9,7 @@ To optimize our code later, do command F ? to find any questions we have/possibl
 
 ## Overview
 
-The traveling salesperson problem asks us to find the shorest route that takes us to each city in the given list once and return to the starting location. Since this problem is NP-hard, there is no efficient way to solve it. We are implementing a genetic algorithm approach to appromimate the shortest path. 
+The traveling salesperson problem asks us to find the shorest route that takes us to each city in the given list once and return to the starting location. Since this problem is NP-hard, there is no efficient way to solve it. We are implementing a genetic algorithm approach to appromimate the shortest path.
 
 ## Chromosome Class
 
@@ -20,7 +20,7 @@ A chromosome represents a permutation on the orders of the cities to visit. Note
  A deme is a population of individuals. Deme class will evolve a genetic algorithm for the travelling-salesperson problem
 
 ## Running the Code
- 
+
 To compile, type `make` into the commandline then `./tsp`. (I think) the code will print some things???
 
 actually we probably want to have two tsp files one random and one with our genetic alg
@@ -31,7 +31,7 @@ To visualize our results we used `gnuplot`
 
 put the visualizations in a folder called images
 
-![](images/filename.png)
+![](images/comparison.gif)
 
 
 **Feedback from last time** Nice graphs, consider adding labels for your axis on the next part of this project! This is especially helpful here since you are
