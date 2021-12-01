@@ -4,9 +4,15 @@ LDFLAGS=$(CXXFLAGS)
 OBJ=$(SRC:.cc=.o)
 
 #including test_cities here in case we update the interface
-all:  test_cities tsp_random tsp_ga
+all:  test_cities tsp_random tsp_ga test_chromosome test_deme
 
-test_cities: cities.o test_cities.o 
+test_cities: cities.o test_cities.o
+	$(CXX) $(LDFLAGS) -o $@ $^
+
+test_chromosome: chromosome.o test_chromosome.o
+	$(CXX) $(LDFLAGS) -o $@ $^
+
+test_deme: deme.o test_deme.o
 	$(CXX) $(LDFLAGS) -o $@ $^
 
 tsp_random: tsp_random.o chromosome.o deme.o cities.o
@@ -19,5 +25,4 @@ tsp_ga: tsp_ga.o chromosome.o deme.o cities.o
 	$(CXX) $(CXXFLAGS) $(OPTFLAGS) -c -o $@ $<
 
 clean:
-	rm -rf *.o test_cities tsp
-
+	rm -rf *.o test_cities test_chromosome test_deme tsp_random tsp_ga

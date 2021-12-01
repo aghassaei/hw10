@@ -1,5 +1,6 @@
 /* Aliya Ghassaei and Nina Young
  * Main program, GA solution
+ * valgrind?
  */
 #include <iostream>
 #include <fstream>
@@ -39,7 +40,7 @@ int main(int argc, char *argv[]){
     Deme deme = Deme(cities_object, pop_size, mut_rate);
 
     while (iterations>0){
-      //run thing
+      //
       iterations--;
     }
 
