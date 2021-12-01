@@ -12,7 +12,7 @@
 
 int main(int argc, char *argv[]){
 
-  // Paramaters for the GA 
+  // Paramaters for the GA
   unsigned pop_size = 100;
   double mut_rate = 0.5;
   int iterations = 100;
@@ -32,17 +32,14 @@ int main(int argc, char *argv[]){
 	else {
 
     // Create cities object and pointer from file
-		Cities cities_object = Cities();
-		cities_file>>cities_object;
-
-    // (?) not correct
-    Cities* cities_ptr = std::make_shared<Cities*>(cities_object);
+		Cities* cities_object = new Cities();
+		cities_file>>*cities_object;
 
     // Create the population
-    Deme::Deme deme = Deme(cities1_ptr, pop_size, mut_rate);
+    Deme deme = Deme(cities_object, pop_size, mut_rate);
 
     while (iterations>0){
-      //run the thing, confused on this?
+      //run thing
       iterations--;
     }
 

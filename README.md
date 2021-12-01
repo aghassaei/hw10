@@ -29,7 +29,10 @@ actually we probably want to have two tsp files one random and one with our gene
 
 To visualize our results we used `gnuplot`
 
-post them here
+put the visualizations in a folder called images
+
+![](images/filename.png)
+
 
 **Feedback from last time** Nice graphs, consider adding labels for your axis on the next part of this project! This is especially helpful here since you are
 counting down the number of remaining iterations which means that your speed.gif looks like a horizontal flip of what it would be if you had counted up in iterations which confused me at first!
