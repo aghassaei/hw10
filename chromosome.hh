@@ -38,6 +38,10 @@ class Chromosome {
     return new Chromosome(cities_ptr_);
   }
 
+  // A chromsome is valid if it has no repeated values in its permutation,
+  // as well as no indices above the range (length) of the chromosome.
+  bool is_valid() const;
+
   // Clean up as necessary
   virtual ~Chromosome();
 
@@ -75,10 +79,6 @@ class Chromosome {
                          const Chromosome* parent2,
                          unsigned begin,
                          unsigned end) const;
-
-  // A chromsome is valid if it has no repeated values in its permutation,
-  // as well as no indices above the range (length) of the chromosome.
-  bool is_valid() const;
 
   // Find whether a certain value appears in a given range of the chromosome.
   // Returns true if value is in order_ within the specified the range specified
