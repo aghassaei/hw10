@@ -68,31 +68,31 @@ Chromosome* Deme::select_parent()
 // After we've generated pop_size new chromosomes, we delete all the old ones.
 void Deme::compute_next_generation()
 {
-  //auto new_pop = empty vector
-  //all inside a big for loop of pop_size/2
-  // Select two parents at random
-  // What if they are the same?
-  Chromosome* p1 = select_parent();
-  Chromosome* p2 = select_parent();
+  std::vector new_pop;
+  for (auto i=0; i<pop_size/2; i++){
+    // Select two parents at random // What if they are the same?
+    Chromosome* p1 = select_parent();
+    Chromosome* p2 = select_parent();
 
-  // Mutate parents if necesssary
-  // (?) need a different random thing because this returns ints
-  std::uniform_int_distribution<int> random4(0, 1);
-  auto mutation = random4(generator_);
-  if (mutation<mut_rate_){
-    p1->mutate();
+    // Mutate parents if random number less than mut_rate_
+    // (?) need a different random thing because this returns ints
+
+    double lower_bound = 0;
+    double upper_bound = 1;
+    std::uniform_real_distribution<double> unif(lower_bound,upper_bound);
+    double mutation = unif(generator_);
+    if (mutation<mut_rate_){
+      p1->mutate();
+    }
+
+    auto mutation2 = unif(generator_);
+
+    if (mutation2<mut_rate_){
+      p1->mutate();
+    }
+    // store two children
+    auto children = p1->recombine(p2);
+    new_pop.push_back(children);
   }
-
-  std::uniform_int_distribution<int> random5(0, 1);
-  auto mutation2 = random5(generator_);
-
-  if (mutation2<mut_rate_){
-    p1->mutate();
-  }
-
-  // store two children
-  auto children = p1->recombine(p2);
-
-  //at the end replace old pop with new pop
-
+  pop_ = new_pop;
 }
