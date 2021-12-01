@@ -4,7 +4,6 @@ LDFLAGS=$(CXXFLAGS)
 OBJ=$(SRC:.cc=.o)
 
 #including test_cities here in case we update the interface
-#fix this ?
 all:  test_cities tsp tsp test_chromosome test_deme
 
 test_cities: cities.o test_cities.o

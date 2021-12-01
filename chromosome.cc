@@ -1,12 +1,4 @@
-/*
- * Implementation for Chromosome class
- * QUESTIONS:
- * arguments for constructor and destructor
- * mutate (see comments)
- * confused on in range
- * general info:
- *  left collumn can be multiple of num of individuals per generation
- *
+/* Implementation for Chromosome class
  */
 
 #include "chromosome.hh"
@@ -33,13 +25,15 @@ Chromosome::~Chromosome()
 void
 Chromosome::mutate()
 {
+  // Make sure chromosome is valid before mutating it
   assert(is_valid());
-  // Initialize two forward iterators instead???
+
+  // Get two random iterators
   std::uniform_int_distribution<int> distribution(0, order_.size()-1);
   auto i = distribution(generator_);
   auto j = distribution(generator_);
 
-  // Swap
+  // Swap something in the permutation
   std::swap(order_[i], order_[j]);
 
   // Check that this new arrangement is valid
@@ -65,11 +59,6 @@ Chromosome::recombine(const Chromosome* other)
  unsigned b = random2(generator_);
  unsigned e = b+l;
  assert(b <= e);
- // assert(e < other->order_.size());
- // std::cout << this->order_.size() << std::endl;
- // std::cout << other->order_.size() << std::endl;
-
-
   // Create crossover children
   ptr_pair.first = create_crossover_child(this, other, b, e);
   ptr_pair.second = create_crossover_child(other, this, b, e);
@@ -111,11 +100,9 @@ Chromosome::create_crossover_child(const Chromosome* p1, const Chromosome* p2,
 
 // Return a positive fitness value, with higher numbers representing
 // fitter solutions (shorter total-city traversal path).
-// (?) We can totally find a better way to do this in the future
 double
 Chromosome::get_fitness() const
 {
-  // (?) Probably better to store fitness as a private member rather than call total_path_distance multiple times
   auto score = cities_ptr_->total_path_distance(order_);
   auto fitness = score*-1 + offset_;
   return fitness;

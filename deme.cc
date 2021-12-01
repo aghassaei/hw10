@@ -1,7 +1,6 @@
 /*
  * Declarations for Deme class to evolve a genetic algorithm for the
  * travelling-salesperson problem.  A deme is a population of individuals.
- * check with valgrind
  */
 
 #include "chromosome.hh"
@@ -18,7 +17,6 @@ Deme::Deme(const Cities* cities_ptr, unsigned pop_size, double mut_rate)
     pop_[i] = new Chromosome(cities_ptr); //make sure that this is allocated corrrectly?
   }
 }
-
 
 // Deconstruct by deleting each chromosome in the population
 Deme::~Deme() {for (auto c : pop_){ delete c;}}
