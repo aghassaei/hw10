@@ -13,7 +13,7 @@ test_cities: cities.o test_cities.o
 test_chromosome: chromosome.o test_chromosome.o cities.o
 	$(CXX) $(LDFLAGS) -o $@ $^
 
-test_deme: deme.o test_deme.o
+test_deme: deme.o test_deme.o chromosome.o cities.o
 	$(CXX) $(LDFLAGS) -o $@ $^
 
 tsp: tsp.o chromosome.o deme.o cities.o

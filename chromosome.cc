@@ -64,6 +64,10 @@ Chromosome::recombine(const Chromosome* other)
  std::uniform_int_distribution<> random2(0, order_.size()-l);
  unsigned b = random2(generator_);
  unsigned e = b+l;
+ assert(b <= e);
+ std::cout << this->order_.size() << std::endl;
+ std::cout << other->order_.size() << std::endl;
+
 
   // Create crossover children
   ptr_pair.first = create_crossover_child(this, other, b, e);
@@ -139,11 +143,5 @@ Chromosome::is_valid() const
 bool
 Chromosome::is_in_range(unsigned value, unsigned begin, unsigned end) const
 {
-  // for (unsigned i = begin; i<end; i++){
-  //   if (order_[i] == value){
-  //     return true;
-  //   }
-  // }
-  // return false;
-  return (std::find(order_.begin() + begin, order_.begin() + end, value) != order_.begin() + end);
+  return std::find(order_.begin() + begin, order_.begin() + end, value) != order_.begin() + end;
 }
