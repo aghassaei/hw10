@@ -62,6 +62,7 @@ Chromosome* Deme::select_parent()
     if (P>rand_num){
       return c;
     }
+  }
 }
 
 // Evolve a single generation of new chromosomes, as follows:
@@ -73,8 +74,8 @@ Chromosome* Deme::select_parent()
 // After we've generated pop_size new chromosomes, we delete all the old ones.
 void Deme::compute_next_generation()
 {
-  std::vector new_pop;
-  for (auto i=0; i<pop_size/2; i++){
+  std::vector<Chromosome::Chromosome*> new_pop;
+  for (unsigned long i=0; i<pop_.size()/2; i++){
     // Select two parents at random // What if they are the same?
     Chromosome* p1 = select_parent();
     Chromosome* p2 = select_parent();
