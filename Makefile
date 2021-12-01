@@ -23,4 +23,4 @@ tsp: tsp.o chromosome.o deme.o cities.o
 	$(CXX) $(CXXFLAGS) $(OPTFLAGS) -c -o $@ $<
 
 clean:
-	rm -rf *.o test_cities test_chromosome test_deme tsp_random tsp_ga
+	rm -rf *.o test_cities test_chromosome test_deme tsp
