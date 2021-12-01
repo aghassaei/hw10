@@ -35,7 +35,7 @@ Chromosome::mutate()
 {
   assert(is_valid());
   // Initialize two forward iterators instead???
-  std::uniform_int_distribution<int> distribution(0, order_.size());
+  std::uniform_int_distribution<int> distribution(0, order_.size()-1);
   auto i = distribution(generator_);
   auto j = distribution(generator_);
 
@@ -58,15 +58,16 @@ Chromosome::recombine(const Chromosome* other)
 
   std::pair<Chromosome*, Chromosome*> ptr_pair;
 
-  std::uniform_int_distribution<> random(0, order_.size());
+  std::uniform_int_distribution<> random(0, order_.size()-1);
  unsigned l = random(generator_);
 
- std::uniform_int_distribution<> random2(0, order_.size()-l);
+ std::uniform_int_distribution<> random2(0, order_.size()-l-1);
  unsigned b = random2(generator_);
  unsigned e = b+l;
  assert(b <= e);
- std::cout << this->order_.size() << std::endl;
- std::cout << other->order_.size() << std::endl;
+ // assert(e < other->order_.size());
+ // std::cout << this->order_.size() << std::endl;
+ // std::cout << other->order_.size() << std::endl;
 
 
   // Create crossover children
@@ -133,8 +134,7 @@ Chromosome::is_valid() const
   //assert that there are no duplicates
   Cities::permutation_t copy = order_;
   std::sort(copy.begin(), copy.end());
-  std::adjacent_find(copy.begin(), copy.end());
-  return true;
+  return std::adjacent_find(copy.begin(), copy.end()) == copy.end() && copy.back() < cities_ptr_->size();
 }
 
 // Find whether a certain value appears in a given range of the chromosome.
